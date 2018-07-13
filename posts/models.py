@@ -1,5 +1,8 @@
+from django.db.models.signals import pre_save
 from django.conf import settings
 from django.db import models
+
+from .scripts import slug_generator
 
 
 class Post(models.Model):
@@ -17,3 +20,11 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+def pre_save_post(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = slug_generator(instance)
+
+
+pre_save.connect(pre_save_post, sender=Post)

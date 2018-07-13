@@ -1,0 +1,146 @@
+/*
+    Django-blog CSS
+*/
+
+/* COMMON */
+
+* { margin: 0; padding: 0; }
+
+html { font-size: 14px; }
+
+body { font-family: Verdana, Geneva, sans-serif; }
+
+a { 
+    text-decoration: none; 
+    color: #0071c3;
+    border-bottom: 1px solid #0071c3;
+}
+
+a:hover { background: #0071c3; color: #fff; }
+
+img { width: 100%; }
+
+.container { margin: 0 auto; width: 60%; }
+
+.tcenter { text-align: center; }
+
+.fbold { font-weight: bold; }
+
+.fleft { float: left; }
+
+.fright { float: right; }
+
+.p20 { padding: 20px 0; }
+.p20-bottom { padding-bottom: 20px; }
+.p20-top { padding-top: 20px; }
+
+.clear:after { content: ''; display: block; clear: both; }
+
+.messages li { list-style-type: none; font-weight: bold; }
+
+.messages .success { color: #12b900; }
+.messages .success:before { content: '[+] ' }
+
+.messages .error { color: #d60000; }
+.messages .error:before { content: '[-] ' }
+
+.messages .warning { color: #ffe200; }
+.messages .warning:before { content: '[!] ' }
+
+.a-success { color: #12b900; border-bottom: 1px solid #12b900;}
+.a-success:hover { color: #fff; background: #12b900; }
+
+.a-error { color: #d60000; border-bottom: 1px solid #d60000; }
+.a-error:hover { color: #fff; background: #d60000; }
+
+/* NAVBAR */
+
+#navbar {
+    width: 100%;
+    padding: 20px 0;
+}
+
+#navbar .navbar-list { list-style-type: none; }
+
+#navbar .navbar-list li { display: inline-block; }
+
+#navbar .navbar-list li:after { content: ' | ' }
+
+#navbar .navbar-list li:last-child:after { content: ''; }
+
+
+.main .header { padding: 20px 0; }
+
+
+/* POSTS */
+
+#posts .content .posts-search input { width: 400px; }
+
+#posts .content .posts-list { list-style-type: none; }
+
+#posts .content .posts-list li { padding: 3px 0; }
+
+#posts .content .posts-list .publish-date { font-family: monospace; }
+
+#posts .content .posts-list .publish-date:after { content: ' > ' }
+
+#posts .content .pagination { list-style-type: none; }
+
+#posts .content .pagination li { display: inline-block; padding: 0 5px; }
+
+/* POST & ABOUT ME */
+
+#post .header .info { background: #9e9e9e; color: #fff; padding: 2px; margin: 10px 0;}
+
+#aboutme .content p, #post .content p { padding: 3px 0; }
+
+/* FORM */
+
+.form .row { padding: 5px 0; }
+
+.form label { float: left; width: 100px; }
+
+.form .errors li { 
+    color: #d60000; 
+    font-weight: bold; 
+    list-style-type: none; 
+    padding-bottom: 10px;
+}
+
+input[type=text], input[type=password], input[type=number], input[type=email], textarea { 
+    width: 250px;
+    height: 15px;
+    padding: 3px 0 3px 5px;
+    font-family: sans-serif;
+}
+
+textarea { height: 200px; }
+
+.btn { 
+    width: 100px;
+    padding: 3px 0;
+    font-weight: bold;
+    background: #ffca00;
+}
+
+.btn:hover { cursor: pointer; background: #ffdf65; }
+
+/* NEW POST */
+
+#newpost .content .form textarea { width: 500px; }
+
+/* DASHBOARD */
+
+#settings .form label { width: 150px; }
+
+table { width: 100%; }
+
+th, td { border: 1px solid #ddd; padding: 5px; }
+
+/* FOOTER */
+
+#footer {
+    margin-top: 40px;
+    border-top: 3px solid #ddd;
+    font-size: .9rem;
+}

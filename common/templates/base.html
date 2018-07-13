@@ -1,0 +1,44 @@
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Mateusz Furga">
+    <meta name="keywords" content="blog, project, template">
+    <meta name="theme-color" content="#fff">
+
+    <title>{% block title %}{% endblock %} &middot; Blog &middot; mfurga.com</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'posts/style.css' %}">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="container clear">
+            <ul class="navbar-list fleft">
+                <li itemprop="name"><a itemprop="url" href="{% url 'posts:list' %}">home</a></li>
+                <li itemprop="name"><a itemprop="url" href="{% url 'aboutme:contact' %}">contact</a></li>
+                <li itemprop="name"><a itemprop="url" href="{% url 'aboutme:details' %}">about me</a></li>
+                {% if not user.is_authenticated %}
+                <li itemprop="name"><a itemprop="url" href="{% url 'users:signin' %}">sign in</a></li>
+                <li itemprop="name"><a itemprop="url" href="{% url 'users:register' %}">register</a></li>
+                {% endif %}
+            </ul>
+            {% if user.is_authenticated %}
+            <ul class="navbar-list fright">
+                <li itemprop="name"><a itemprop="url" href="{% url 'users:dashboard' %}">{{ request.user }}</a> {% if request.user.is_superuser %}(admin){% endif %}</li>
+                <li itemprop="name"><a itemprop="url" href="{% url 'posts:create' %}">new post</a></li>
+                <li itemprop="name"><a itemprop="url" href="{% url 'users:logout' %}">logout</a></li>
+            </ul>
+            {% endif %}
+        </div>
+    </nav>
+    {% if messages %}<ul class="messages container">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>{% endif %}
+    {% block content %}{% endblock %}
+    <footer id="footer" class="container tcenter p20">
+        <p>Source code aviable on <a href="https://github.com/mfurga/django-blog">Github</a></p>
+        <p>&copy; Copyright &middot; 2018 &middot; Mateusz Furga</p>
+    </footer>
+</body>
+</html>

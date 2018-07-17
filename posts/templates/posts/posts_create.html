@@ -1,0 +1,35 @@
+{% extends 'templates/base.html' %}
+
+{% block title %}Create post{% endblock %}
+
+{% block content %}
+<section id="newpost" class="main">
+		<div class="container">
+			<header class="header">
+				<h1 class="title">New post</h1>
+			</header>
+			<div class="content">
+				<form action="" method="post" class="form">
+					{% csrf_token %}
+					{% for field in form.visible_fields %}
+					<div class="row">
+						<ul class="errors">
+							{% if field.errors %}
+							{% for error in field.errors %}
+								<li>{{ error }}</li>
+							{% endfor %}
+							{% endif %}
+						</ul>
+						{{ field.label_tag }}
+						{{ field }}
+					</div>
+					{% endfor %}
+					<div class="row">
+						<button class="btn" type="submit">Save</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+{% endblock %}
+

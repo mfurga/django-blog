@@ -1,0 +1,17 @@
+{% extends 'templates/base.html' %}
+
+{% block title %}{{ ins.title }}{% endblock %}
+
+{% block content %}
+	<section id="post" class="main">
+		<div class="container">
+			<header class="header">
+				<h1 class="title">{{ ins.title }}</h1>
+				<p class="info">{{ ins.publish | date:'d M, Y' }} published by {{ ins.author }}</p>
+			</header>
+			<div class="content">
+				{{ ins.content }}
+			</div>
+		</div>
+	</section>
+{% endblock %}

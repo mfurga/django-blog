@@ -30,12 +30,10 @@ def posts_detail(request, slug=None):
 def posts_create(request):
 
     if request.method == 'POST':
-        form = PostForm(request.POST, 
-            initial={
+        form = PostForm(request.POST, initial={
                 'author': request.user,
                 'publish': datetime.date.today
-            }
-        )
+            })
         if form.is_valid():
             author = request.user
             title = form.cleaned_data['title']
@@ -57,6 +55,9 @@ def posts_create(request):
             return redirect('posts:list')
 
     else:
-        form = PostForm(initial={'author': request.user, 'publish': datetime.date.today}) 
+        form = PostForm(initial={
+                'author': request.user,
+                'publish': datetime.date.today
+            })
 
     return render(request, 'posts/posts_create.html', {'form': form})

@@ -1,5 +1,6 @@
-from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.db.models import Q
@@ -28,7 +29,6 @@ def posts_detail(request, slug=None):
 
 @login_required
 def posts_create(request):
-
     if request.method == 'POST':
         form = PostForm(request.POST, initial={
                 'author': request.user,
@@ -50,14 +50,28 @@ def posts_create(request):
                     publish=publish,
                     active=active
                 )
-
             messages.success(request, 'Post successfully added.')
             return redirect('posts:list')
-
     else:
         form = PostForm(initial={
                 'author': request.user,
                 'publish': datetime.date.today
             })
+    return render(request, 'posts/posts_create.html', {'form': form})
 
+
+def posts_edit(request, slug=None):
+    if request.user != Post.objects.get(slug=slug).author and not request.user.is_superuser:
+        raise Http404()
+
+    ins = get_object_or_404(Post, slug=slug)
+    form = PostForm(request.POST or None, instance=ins, initial={
+        'author': ins.author,
+        'publish': datetime.date.today
+        })
+    if form.is_valid():
+        ins = form.save(commit=False)
+        ins.save()
+        messages.success(request, 'Post successfully updated.')
+        return redirect('posts:detail', slug=slug)
     return render(request, 'posts/posts_create.html', {'form': form})

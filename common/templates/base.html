@@ -15,7 +15,7 @@
             <ul class="navbar-list fleft">
                 <li itemprop="name"><a itemprop="url" href="{% url 'posts:list' %}">home</a></li>
                 <li itemprop="name"><a itemprop="url" href="#">contact</a></li>
-                <li itemprop="name"><a itemprop="url" href="#">about me</a></li>
+                <li itemprop="name"><a itemprop="url" href="{% url 'aboutme:details' %}">about me</a></li>
                 {% if not user.is_authenticated %}
                 <li itemprop="name"><a itemprop="url" href="#">sign in</a></li>
                 <li itemprop="name"><a itemprop="url" href="#">register</a></li>
@@ -37,7 +37,7 @@
     </ul>{% endif %}
     {% block content %}{% endblock %}
     <footer id="footer" class="container tcenter p20">
-        <p>Source code aviable on <a href="https://github.com/mfurga/django-blog">Github</a></p>
+        <p>Source code available on <a href="https://github.com/mfurga/django-blog">Github</a></p>
         <p>&copy; Copyright &middot; 2018 &middot; Mateusz Furga</p>
     </footer>
 </body>

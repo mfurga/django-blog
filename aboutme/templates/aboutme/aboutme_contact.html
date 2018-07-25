@@ -1,0 +1,39 @@
+{% extends 'templates/base.html' %}
+
+{% block title %}About me{% endblock %}
+
+{% block content %}
+<section id="contact" class="main">
+    <div class="container">
+        <header class="header">
+            <h1 class="title">Contact</h1>
+        </header>
+        <div class="content">
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+                {% if form.hidden_fields %}
+                {% for field in form.hidden_fields %}
+                    {{ field }}
+                {% endfor %}
+                {% endif %}
+                {% for field in form.visible_fields %}
+                <div class="row">
+                    {% if field.errors %}
+                    <ul class="errors">
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {{ field.label_tag }}
+                    {{ field }}
+                </div>
+                {% endfor %}
+                <div class="row">
+                    <button class="btn" type="submit">Send now!</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

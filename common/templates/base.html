@@ -14,7 +14,7 @@
         <div class="container clear">
             <ul class="navbar-list fleft">
                 <li itemprop="name"><a itemprop="url" href="{% url 'posts:list' %}">home</a></li>
-                <li itemprop="name"><a itemprop="url" href="#">contact</a></li>
+                <li itemprop="name"><a itemprop="url" href="{% url 'aboutme:contact' %}">contact</a></li>
                 <li itemprop="name"><a itemprop="url" href="{% url 'aboutme:details' %}">about me</a></li>
                 {% if not user.is_authenticated %}
                 <li itemprop="name"><a itemprop="url" href="#">sign in</a></li>

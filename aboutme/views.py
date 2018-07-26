@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 
 from .forms import ContactForm
@@ -25,3 +25,9 @@ def aboutme_contact(request):
             return redirect('posts:list')
 
     return render(request, 'aboutme/aboutme_contact.html', {'form': form})
+
+
+def aboutme_delete_message(request, id):
+    qs = get_object_or_404(Contact, id=id).delete()
+    messages.success(request, 'Message successfully deleted.')
+    return redirect('posts:list')

@@ -1,0 +1,172 @@
+{% extends 'templates/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <section id="dashboard" class="main">
+        <div class="container">
+            <header class="header">
+                <h1 class="title">Dashboard</h1>
+            </header>
+            <div class="content">
+                <p>number of posts: <span class="fbold">{{ posts_list.count }}</span> &middot; number of users: <span class="fbold">{{ users_list.count }}</span> &middot; number of messages: <span class="fbold">{{ messages_list.count }}</span></p>
+                <section id="settings">
+                    <header class="header">
+                        <h2>Settings</h2>
+                    </header>
+                    <div class="content">
+                        <form action="" method="post" class="form">
+                            {% csrf_token %}
+                            {% for field in form.visible_fields %}
+                            <div class="row">
+                                <ul class="errors">
+                                    {% if field.errors %}
+                                    {% for error in field.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                    {% endif %}
+                                </ul>
+                                {{ field.label_tag }}
+                                {{ field }}
+                            </div>
+                            {% endfor %}
+                            <button class="btn tcenter" type="submit">Save</button>
+                        </form>
+                    </div>
+                </section>
+                <section id="user-posts">
+                    <header class="header">
+                        <h2>Your posts</h2>
+                    </header>
+                    <div class="content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>nr</th>
+                                    <th>title</th>
+                                    <th>content</th>
+                                    <th>date</th>
+                                    <th>action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for post in user_posts_list %}
+                                <tr>
+                                    <td>{{ post.id }}</td>
+                                    <td>{{ post.title }}</td>
+                                    <td>{{ post.content | truncatechars:15 }}</td>
+                                    <td>{{ post.publish | date:'d M, Y' }}</td>
+                                    <td class="tcenter">
+                                        <a href="{% url 'posts:edit' post.slug %}">edit</a> |
+                                        <a href="{% url 'posts:delete' post.slug %}?next={{ request.path }}">delete</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                {% if request.user.is_superuser %}
+                <section id="all-posts">
+                    <header class="header">
+                        <h2>All posts</h2>
+                    </header>
+                    <div class="content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>nr</th>
+                                    <th>author</th>
+                                    <th>title</th>
+                                    <th>content</th>
+                                    <th>date</th>
+                                    <th>action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for post in posts_list %}
+                                <tr>
+                                    <td>{{ post.id }}</td>
+                                    <td>{{ post.author }}</td>
+                                    <td>{{ post.title }}</td>
+                                    <td>{{ post.content | truncatechars:15 }}</td>
+                                    <td>{{ post.publish | date:'d M, Y' }}</td>
+                                    <td class="tcenter">
+                                        <a href="{% url 'posts:edit' post.slug %}">edit</a> |
+                                        <a href="{% url 'posts:delete' post.slug %}?next={{ request.path }}">delete</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section id="users">
+                    <header class="header">
+                        <h2>Users</h2>
+                    </header>
+                    <div class="content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>nr</th>
+                                    <th>username</th>
+                                    <th>is staff</th>
+                                    <th>admin</th>
+                                    <th>action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users_list %}
+                                <tr>
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.username }}</td>
+                                    <td>{% if user.is_staff %}True - <a href="{% url 'users:action' action=0 pk=user.id %}">remove</a>{% else %}False - <a href="{% url 'users:action' action=0 pk=user.id %}">Add</a>{% endif %}</td>
+                                    <td>{% if user.is_superuser %}True - <a href="{% url 'users:action' action=1 pk=user.id %}">remove</a>{% else %}False - <a href="{% url 'users:action' action=1 pk=user.id %}">Add</a>{% endif %}</td>
+                                    <td>
+                                        <a href="">delete</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                {% endif %}
+                {% if request.user.is_staff %}
+                <section id="messages">
+                    <header class="header">
+                        <h2>Messages</h2>
+                    </header>
+                    <div class="content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>nr</th>
+                                    <th>email</th>
+                                    <th>message</th>
+                                    <th>date</th>
+                                    <th>action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for message in messages_list %}
+                                <tr>
+                                    <td>{{ message.id }}</td>
+                                    <td>{{ message.email }}</td>
+                                    <td>{{ message.message }}</td>
+                                    <td>{{ message.date | date:'d M, Y' }}</td>
+                                    <td>
+                                        <a href="{% url 'aboutme:delete' message.id %}">delete</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

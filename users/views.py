@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect
@@ -48,3 +49,10 @@ def users_register(request):
             return redirect('users:signin')
 
     return render(request, 'users/users_register.html', {'form': form})
+
+
+@login_required
+def users_logout(request):
+    logout(request)
+    messages.success(request, 'Logout successfully.')
+    return redirect('users:signin')

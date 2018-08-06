@@ -1,3 +1,5 @@
 from django.db import models
 
-# Create your models here.
+
+class BlogSettings(models.Model):
+    num_pages = models.IntegerField()

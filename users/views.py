@@ -21,7 +21,6 @@ def users_signin(request):
     form = SigninForm()
     if request.method == 'POST':
         form = SigninForm(request.POST)
-
         if form.is_valid():
             if not is_safe_url(url=redirect_to, host=request.get_host()):
                 redirect_to = reverse('posts:list')
@@ -43,7 +42,6 @@ def users_register(request):
     form = RegisterForm()
     if request.method == 'POST':
         form = RegisterForm(request.POST)
-
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']

@@ -11,7 +11,7 @@ class PostForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput(attrs={'placeholder': 'title'}),
             'content': forms.Textarea(attrs={'placeholder': 'content'}),
-            'tags': forms.TextInput(attrs={'placeholder': 'e.g. food, restaurant'}),
+            'tags': forms.TextInput(attrs={'placeholder': 'tags'}),
             'publish': forms.SelectDateWidget()
         }
         labels = {

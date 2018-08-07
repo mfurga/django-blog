@@ -5,12 +5,12 @@ from django import forms
 
 class SigninForm(forms.Form):
     username = forms.CharField(
-        max_length=50, 
+        max_length=50,
         label='Username',
         widget=forms.TextInput(attrs={'placeholder': 'username'})
     )
     password = forms.CharField(
-        max_length=50, 
+        max_length=50,
         label='Password',
         widget=forms.PasswordInput(attrs={'placeholder': 'password'})
     )
@@ -26,17 +26,17 @@ class SigninForm(forms.Form):
 
 class RegisterForm(forms.Form):
     username = forms.CharField(
-        max_length=50, 
+        max_length=50,
         label='Username',
         widget=forms.TextInput(attrs={'placeholder': 'username'})
     )
     password = forms.CharField(
-        max_length=50, 
+        max_length=50,
         label='Password',
         widget=forms.PasswordInput(attrs={'placeholder': 'password'})
     )
     password_repeat = forms.CharField(
-        max_length=50, 
+        max_length=50,
         label='Password repeat',
         widget=forms.PasswordInput(attrs={'placeholder': 'password repeat'})
     )

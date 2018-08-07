@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import users_signin, users_register, users_logout, users_dashboard, users_action
+from .views import *
 
 app_name = 'users'
 urlpatterns = [

@@ -59,7 +59,10 @@ def users_dashboard(request):
     users_list = User.objects.all()
     user_posts_list = Post.objects.filter(author=request.user)
     blog_settings = BlogSettings.objects.first()
+    if not blog_settings:
+        blog_settings = BlogSettings.objects.create(num_pages=5)
 
+    form = BlogSettingsForm(initial={'num_pages': blog_settings.num_pages})
     if request.method == 'POST':
         form = BlogSettingsForm(request.POST)
         if form.is_valid():
@@ -68,15 +71,12 @@ def users_dashboard(request):
             blog_settings.save()
             messages.success(request, 'Number of pages successfully updated.')
             return redirect('users:dashboard')
-    else:
-        form = BlogSettingsForm(initial={'num_pages': blog_settings.num_pages})
 
     context = {
         'messages_list': messages_list,
         'posts_list': posts_list,
         'users_list': users_list,
         'user_posts_list': user_posts_list,
-        'blog_settings': blog_settings,
         'form': form
     }
     return render(request, 'users/users_dashboard.html', context)

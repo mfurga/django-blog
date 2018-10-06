@@ -2,7 +2,7 @@
 Blog with CMS system & very basic templates implemented in [Django Web Framework](https://www.djangoproject.com/).
 
 ## Requirements
-- Django 2.0.7
+- Django 2.0.8
 - pytz 2018.5
 
 ## Installation
